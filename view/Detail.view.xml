@@ -1,0 +1,25 @@
+<sap.ui.core.mvc:View controllerName="STSA.view.Detail"
+    xmlns="sap.m"
+    xmlns:sap.ui.core.mvc="sap.ui.core.mvc" >
+    <Page navButtonPress="onNavBack" title="{i18n>detailTitle}" showNavButton="{device>/isPhone}">
+        <content>
+            <ObjectHeader title="{Description}" number="#{TicketId}" numberUnit="Prio:{Priority}" introActive="false" titleActive="false" iconActive="false">
+                <attributes>
+                    <ObjectAttribute text="Created: {CreateDate}" active="false"></ObjectAttribute>
+                    <ObjectAttribute text="Status: {Status}" active="false"></ObjectAttribute>
+                </attributes>
+            </ObjectHeader>
+            <Label id="commentsLabel" class="commentsLabel" text="Comments"></Label>
+            <TextArea id="newComment" width="100%" placeholder="New Comment ..." height="68px" wrapping="None"></TextArea>
+            <Link id="addComment" class="commentAddLink" press="onAddComment" text="+Add"></Link>
+            <List id="commentList" select="onSelect" mode="{device>/listMode}" noDataText="{i18n>masterListNoDataText}" growing="true" growingScrollToLoad="true" items="{/CommentSet}">
+                <items>
+                    <ObjectListItem press="onSelect" type="{device>/listItemType}" counter="0" title="{Content}" markFavorite="false" markFlagged="false" showMarkers="false"></ObjectListItem>
+                </items>
+            </List>
+        </content>
+        <footer>
+            <Toolbar></Toolbar>
+        </footer>
+    </Page>
+</sap.ui.core.mvc:View>
