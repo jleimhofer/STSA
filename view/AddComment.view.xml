@@ -1,9 +1,0 @@
-<sap.ui.core.mvc:View controllerName="STSA.view.AddComment"
-    xmlns="sap.m"
-    xmlns:sap.ui.core.mvc="sap.ui.core.mvc" >
-    <Page title="Comment:">
-        <content>
-            <TextArea id="area0" placeholder="test" wrapping="None" rows="2" cols="20"></TextArea>
-        </content>
-    </Page>
-</sap.ui.core.mvc:View>

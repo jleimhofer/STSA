@@ -3,10 +3,15 @@
     xmlns:sap.ui.core.mvc="sap.ui.core.mvc" >
     <Page navButtonPress="onNavBack" title="{i18n>detailTitle}" showNavButton="{device>/isPhone}">
         <content>
-            <ObjectHeader title="{Description}" number="#{TicketId}" numberUnit="Prio:{Priority}" introActive="false" titleActive="false" iconActive="false">
+            <ObjectHeader id="objectHeader" title="{Description}" number="#{TicketId}" numberUnit="Prio:{Priority}" introActive="false" titleActive="false" iconActive="false">
                 <attributes>
-                    <ObjectAttribute text="Created: {CreateDate}" active="false"></ObjectAttribute>
-                    <ObjectAttribute text="Status: {Status}" active="false"></ObjectAttribute>
+                    <ObjectAttribute id="created" title="Created" text="{CreateDate}" active="false"></ObjectAttribute>
+                    <ObjectAttribute id="resolved" title="Resolved" text="{ResolveDate}" active="false" visible="false"></ObjectAttribute>
+                    <ObjectAttribute title="Status" text="{Status}" active="false" class="statusAttribute"></ObjectAttribute>
+                    <ObjectAttribute id="startProgress" text="Start progress" active="true" press="onStartProgress" class="startProgressAttribute"></ObjectAttribute>
+                    <ObjectAttribute id="resolve" text="Resolve" active="true" press="onResolve" class="resolveAttribute"></ObjectAttribute>
+                    <ObjectAttribute title="Machine" text="{TypeName}" active="true" press="onDisplayMachine"></ObjectAttribute>
+                    <ObjectAttribute title="Customer" text="{Title}" active="true" press="onDisplayCustomer"></ObjectAttribute>
                 </attributes>
             </ObjectHeader>
             <Label id="commentsLabel" class="commentsLabel" text="Comments"></Label>

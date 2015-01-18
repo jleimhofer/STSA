@@ -89,7 +89,7 @@ sap.ui.core.UIComponent.extend("STSA.Component", {
 		// Create and set domain model to the component
 		var oModel = new sap.ui.model.odata.ODataModel(sServiceUrl, {json: true,loadMetadataAsync: true});
 		this.setModel(oModel);
-
+		
 		// set device model
 		var oDeviceModel = new sap.ui.model.json.JSONModel({
 			isTouch : sap.ui.Device.support.touch,
@@ -100,10 +100,43 @@ sap.ui.core.UIComponent.extend("STSA.Component", {
 			listItemType : sap.ui.Device.system.phone ? "Active" : "Inactive"
 		});
 		oDeviceModel.setDefaultBindingMode("OneWay");
+		
 		this.setModel(oDeviceModel, "device");
-
-		this.getRouter().initialize();
-
+		
+		// global variables are going to be stored within this object
+		sap.ui.getCore().AppContext = new Object();
+ 
+		// present login view
+		var loginView = sap.ui.view({
+			type:sap.ui.core.mvc.ViewType.XML, 
+			viewName:"STSA.view.Login"
+		});
+		loginView.setModel(this.getModel());
+		
+		var oLoginDialog = new sap.m.Dialog({
+			modal : true,
+			content : [ loginView ],
+			title: "Technician"
+		});
+        sap.ui.getCore().AppContext.LoginDialog = oLoginDialog;
+		
+		oLoginDialog.setContentWidth("100%");
+        oLoginDialog.setContentHeight("100%");
+        var self = this;
+        oLoginDialog.attachAfterClose(function(oEvent)  {
+            if(sap.ui.getCore().AppContext.ValidUser)
+            {
+                // start application if user is valid
+    		    self.getRouter().initialize();
+            }
+            else
+            {
+                // if user has closed login window without valid login
+                self.destroy();
+            }
+        });
+        
+		oLoginDialog.open();
 	},
 
 	_startMockServer : function (sServiceUrl) {

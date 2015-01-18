@@ -4,6 +4,7 @@ jQuery.sap.require("STSA.util.Controller");
 STSA.util.Controller.extend("STSA.view.Master", {
 
 	onInit : function() {
+	    
 		this.oInitialLoadFinishedDeferred = jQuery.Deferred();
 
 		var oEventBus = this.getEventBus();
@@ -23,6 +24,15 @@ STSA.util.Controller.extend("STSA.view.Master", {
 
 		oEventBus.subscribe("Detail", "Changed", this.onDetailChanged, this);
 		oEventBus.subscribe("Detail", "NotFound", this.onNotFound, this);
+	},
+	
+	onAfterRendering : function()
+	{
+    	var filters = [];
+		// filter by technician with id 4
+        filters.push(new sap.ui.model.Filter("TechnicianId", sap.ui.model.FilterOperator.EQ, sap.ui.getCore().AppContext.TechnicianId));
+		// update list binding
+		this.getView().byId("list").getBinding("items").filter(filters);
 	},
 
 	onRouteMatched : function(oEvent) {
@@ -46,12 +56,6 @@ STSA.util.Controller.extend("STSA.view.Master", {
 			this.selectFirstItem();
 
 		});
-		
-		var filters = [];
-		// filter by technician with id 4
-        filters.push(new sap.ui.model.Filter("TechnicianId", sap.ui.model.FilterOperator.EQ, "4"));
-		// update list binding
-		this.getView().byId("list").getBinding("items").filter(filters);
 	},
 
 	onDetailChanged : function (sChanel, sEvent, oData) {
@@ -97,23 +101,6 @@ STSA.util.Controller.extend("STSA.view.Master", {
 		}
 	},
 
-	onSearch : function() {
-		// add filter for search
-		var filters = [];
-		// filter by technician with id 4
-        // filters.push(new sap.ui.model.Filter("TechnicianId", sap.ui.model.FilterOperator.EQ, "4"));
-
-		var searchString = this.getView().byId("searchField").getValue();
-		if (searchString && searchString.length > 0) {
-			filters = [ new sap.ui.model.Filter("", sap.ui.model.FilterOperator.Contains, searchString) ];
-		}
-		
-        filters.push(new sap.ui.model.Filter("TechnicianId", sap.ui.model.FilterOperator.EQ, "4"));
-
-		// update list binding
-		this.getView().byId("list").getBinding("items").filter(filters);
-	},
-
 	onSelect : function(oEvent) {
 		// Get the list item, either from the listItem parameter or from the event's
 		// source itself (will depend on the device-dependent mode).
@@ -128,5 +115,10 @@ STSA.util.Controller.extend("STSA.view.Master", {
 			entity: oItem.getBindingContext().getPath().substr(1),
 			tab: this.sTab
 		}, bReplace);
-	}
+	},
+	
+	onLiveChange : function(oEvent) {
+		jQuery.sap.require("STSA.util.Utility");
+		search(this.getView(), oEvent.getParameters().newValue, "list");
+    }
 });
