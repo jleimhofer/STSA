@@ -18,7 +18,7 @@
             <Label id="commentsLabel" class="commentsLabel" text="Comments"></Label>
             <TextArea id="newComment" width="100%" placeholder="New Comment ..." height="68px" wrapping="None"></TextArea>
             <Link id="addComment" class="commentAddLink" press="onAddComment" text="+Add Comment"></Link>
-            <List id="commentList" select="onSelect" mode="{device>/listMode}" noDataText="{i18n>masterListNoDataText}" growing="true" growingScrollToLoad="true" items="{/CommentSet}">
+            <List id="commentList" select="onSelect" mode="{device>/listMode}" noDataText="No Comments" growing="true" growingScrollToLoad="true" items="{/CommentSet}">
                 <items>
                     <ObjectListItem press="onSelect" type="{device>/listItemType}" counter="0" title="{Content}" markFavorite="false" markFlagged="false" showMarkers="false"></ObjectListItem>
                 </items>
