@@ -106,37 +106,8 @@ sap.ui.core.UIComponent.extend("STSA.Component", {
 		// global variables are going to be stored within this object
 		sap.ui.getCore().AppContext = new Object();
  
-		// present login view
-		var loginView = sap.ui.view({
-			type:sap.ui.core.mvc.ViewType.XML, 
-			viewName:"STSA.view.Login"
-		});
-		loginView.setModel(this.getModel());
-		
-		var oLoginDialog = new sap.m.Dialog({
-			modal : true,
-			content : [ loginView ],
-			title: "Technician"
-		});
-        sap.ui.getCore().AppContext.LoginDialog = oLoginDialog;
-		
-		oLoginDialog.setContentWidth("100%");
-        oLoginDialog.setContentHeight("100%");
-        var self = this;
-        oLoginDialog.attachAfterClose(function(oEvent)  {
-            if(sap.ui.getCore().AppContext.ValidUser)
-            {
-                // start application if user is valid
-    		    self.getRouter().initialize();
-            }
-            else
-            {
-                // if user has closed login window without valid login
-                self.destroy();
-            }
-        });
-        
-		oLoginDialog.open();
+ 		jQuery.sap.require("STSA.util.Utility");
+		openLoginDialog(this.getRouter(), this.getModel(), null, this);
 	},
 
 	_startMockServer : function (sServiceUrl) {

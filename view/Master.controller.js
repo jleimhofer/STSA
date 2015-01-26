@@ -29,7 +29,7 @@ STSA.util.Controller.extend("STSA.view.Master", {
 	onAfterRendering : function()
 	{
     	var filters = [];
-		// filter by technician with id 4
+		// filter by technician
         filters.push(new sap.ui.model.Filter("TechnicianId", sap.ui.model.FilterOperator.EQ, sap.ui.getCore().AppContext.TechnicianId));
 		// update list binding
 		this.getView().byId("list").getBinding("items").filter(filters);
@@ -120,5 +120,12 @@ STSA.util.Controller.extend("STSA.view.Master", {
 	onLiveChange : function(oEvent) {
 		jQuery.sap.require("STSA.util.Utility");
 		search(this.getView(), oEvent.getParameters().newValue, "list");
+    },
+    
+    onLogout: function() {
+        sap.ui.getCore().AppContext.ValidUser = 0;
+        sap.ui.getCore().AppContext.Manager = 0;
+		jQuery.sap.require("STSA.util.Utility");
+		openLoginDialog(this.getRouter(), this.getView().getModel(), this.getView(), 0);
     }
 });

@@ -31,6 +31,7 @@
 				growingScrollToLoad="true">
 				<items>
 					<ObjectListItem
+					    icon="sap-icon://document"
 						type="{device>/listItemType}"
 						press="onSelect" 
 						title="{Description}" 
@@ -42,6 +43,11 @@
 		</content>
 		<footer>
 			<Toolbar>
+			    <Bar design="Footer">
+    		         <contentLeft>
+    			             <Button id="btnLogout" icon="sap-icon://log" press="onLogout"/>
+    		         </contentLeft>
+			    </Bar>
 			</Toolbar>
 		</footer>
 	</Page>

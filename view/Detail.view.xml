@@ -20,12 +20,18 @@
             <Link id="addComment" class="commentAddLink" press="onAddComment" text="+Add Comment"></Link>
             <List id="commentList" select="onSelect" mode="{device>/listMode}" noDataText="No Comments" growing="true" growingScrollToLoad="true" items="{/CommentSet}">
                 <items>
-                    <ObjectListItem press="onSelect" type="{device>/listItemType}" counter="0" title="{Content}" markFavorite="false" markFlagged="false" showMarkers="false"></ObjectListItem>
+                    <ObjectListItem press="onSelect" icon="sap-icon://comment" type="{device>/listItemType}" counter="0" title="{Content}" markFavorite="false" markFlagged="false" showMarkers="false"></ObjectListItem>
                 </items>
             </List>
         </content>
         <footer>
-            <Toolbar></Toolbar>
+            <Toolbar>
+                <Bar design="Footer">
+    		         <contentLeft>
+    			             <Button id="btnLogout" icon="sap-icon://log" press="onLogout" visible="false"/>
+    		         </contentLeft>
+			    </Bar>
+            </Toolbar>
         </footer>
     </Page>
 </sap.ui.core.mvc:View>

@@ -7,6 +7,8 @@ STSA.util.Controller.extend("STSA.view.Detail", {
 		this.oInitialLoadFinishedDeferred = jQuery.Deferred();
 
 		if(sap.ui.Device.system.phone) {
+		    //display logout button
+    	    this.getView().byId("btnLogout").setVisible(true);
 			//don't wait for the master on a phone
 			this.oInitialLoadFinishedDeferred.resolve();
 		} else {
@@ -266,6 +268,7 @@ STSA.util.Controller.extend("STSA.view.Detail", {
 	onDisplayMachine:function(){
 		//The Template to use in the Dialog
 		var itemTemplate = new sap.m.StandardListItem({
+		    icon: "sap-icon://technical-object",
 			title: "{Name}",
 			description: "{Content}",
 			active: true
