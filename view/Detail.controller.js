@@ -315,5 +315,12 @@ STSA.util.Controller.extend("STSA.view.Detail", {
     	var typeId = bindingContext.getProperty("TypeId");
         oDialog.getBinding("items").filter([new sap.ui.model.Filter("TypeId", sap.ui.model.FilterOperator.EQ, typeId)]);
 		oDialog.open();
-	}
+	},
+	
+	onLogout: function() {
+        sap.ui.getCore().AppContext.ValidUser = 0;
+        sap.ui.getCore().AppContext.Manager = 0;
+		jQuery.sap.require("STSA.util.Utility");
+		openLoginDialog(this.getRouter(), this.getView().getModel(), this.getView(), 0);
+    }
 });
